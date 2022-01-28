@@ -36,34 +36,62 @@ def labb2_personer_vt22(csvFilePath, jsonFilePath):
 
     csvFilePath = 'labb2_personer_vt22.csv'
     jsonFilePath = 'labb2_personer_vt22.json'
-
+    
     data = {}
+    
+    json.write(json.dumps(data, indent=4))
 
-    menu = {}
-    menu['1'] = "read original file"
-    menu['2'] = "show json data"
-    menu['3'] = "add a person"
-    menu['4'] = "remove a person"
-    menu['5'] = "save file"
-    menu['6'] = "exit"
 
-    if menu == 1:
-     with open(csvFilePath) as csvFile:
-        csvReader = csv.DictReader(csvFile)
-        for rows in csvReader:
-            id = rows['id']
-            data[id] = rows
+    print("1. läs originalfil, 2. visa json data, 3. lägg till person, 4. ta bort person, 5. spara fil, 6. avsluta")
+    
+    # menu = {}
+    # menu['1'] = "read original file"
+    # menu['2'] = "show json data"
+    # menu['3'] = "add a person"
+    # menu['4'] = "remove a person"
+    # menu['5'] = "save file"
+    # menu['6'] = "exit"
+    
+    menu_options = {
+        1: '1',
+        2: '2',
+        3: '3',
+        4: '4',
+        5: '5',
+        6: '6'
+    }
+    
+    def print_menu():
+        for personer in menu_options.keys():
+            print (personer, '--', menu_options[personer])
+    
+    while [1, 5]:
+        print_menu()
+        option= int(input("Välj 1-6: ")) #läs in originalfil (csv), visa json-data, lägg till person, ta bort person, spara fil, avsluta
 
-    elif menu == 2:
-        with open(jsonFilePath, 'r') as jsonFile:
-            jsonFile.read(json.dumps(data, indent=4))
+        if option == 1:
+            with open(csvFilePath) as csvFile:
+                csvReader = csv.DictReader(csvFile)
+            for rows in csvReader:
+                    id = rows['id']
+                    data[id] = rows
+            
+        elif option == 2:
+            with open(jsonFilePath, 'r') as jsonFile:
+                jsonFile.read(json.dumps(data, indent=4))
 
-# elif menu == 3:
-#     with open(csvFilePath, 'a') as csvFile:
-#         csvAppend = csv.DictAppend(csvFile)
-#         input("\n Lägg til person: ")
+        elif option == 3:
+            with open(csvFilePath, 'a') as csvFile:
+                csvAppend = csv.DictAppend(csvFile)
+                input("\n Lägg til person: ")
 
-# elif menu == 4:
-#     with open(csvFilePath, 'w') as csvFile:
+        elif option == 4:
+            with open(csvFilePath, 'w') as csvFile:
+                
+       # elif option == 5:
+        #    with
+        
+        else:
+            print("Avsluta")
 
-labb2_personer_vt22 ()
+    labb2_personer_vt22 ()
