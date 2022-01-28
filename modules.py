@@ -28,7 +28,9 @@
     
     
 # meny med 6 val: läs in originalfil (csv), visa json-data, lägg till person, ta bort person, spara fil, avsluta
+
 # {} to create a dictionary, [] to index it
+
 import csv
 import json
 
