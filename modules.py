@@ -1,4 +1,6 @@
 # import random 
+import csv
+import json
 
 # def nummer (x, y):
 #     thousand = list(range(1, 1001))
@@ -31,28 +33,20 @@
 
 # {} to create a dictionary, [] to index it
 
-import csv
-import json
 
-def labb2_personer_vt22(csvFilePath, jsonFilePath):
+
+def program_lab2(csvFilePath, json_obj):
 
     csvFilePath = 'labb2_personer_vt22.csv'
-    jsonFilePath = 'labb2_personer_vt22.json'
+    #jsonFilePath = 'labb2_personer_vt22.json'
     
-    data = {}
+    data = {} #behövs nog inte
+    with open ("labb2_personer_vt22.json", "w", encoding="utf-8") as json_obj:
+    json.dump(json_obj, ensure_ascii=False, indent=4)
     
-    json.write(json.dumps(data, indent=4))
 
 
-    print("1. läs originalfil, 2. visa json data, 3. lägg till person, 4. ta bort person, 5. spara fil, 6. avsluta")
-    
-    # menu = {}
-    # menu['1'] = "read original file"
-    # menu['2'] = "show json data"
-    # menu['3'] = "add a person"
-    # menu['4'] = "remove a person"
-    # menu['5'] = "save file"
-    # menu['6'] = "exit"
+    print("1: läs originalfil, 2: visa json data, 3: lägg till person, 4: ta bort person, 5: spara fil, 6: avsluta")
     
     menu_options = {
         1: '1',
@@ -69,31 +63,36 @@ def labb2_personer_vt22(csvFilePath, jsonFilePath):
     
     while [1, 5]:
         print_menu()
-        option= int(input("Välj 1-6: ")) #läs in originalfil (csv), visa json-data, lägg till person, ta bort person, spara fil, avsluta
+        #print("1=: read original file")            
+        #print("2=: show json data")            
+        #print("3=: add a person")            
+        #print("4=: remove a person")            
+        #print("5=: save file")            
+        #print("6=: exit")            
+        option= int(input("Välj 1-6: "))
 
         if option == 1:
-            with open(csvFilePath) as csvFile:
+            with open(csvFilePath, "r" ) as csvFile:
                 csvReader = csv.DictReader(csvFile)
             for rows in csvReader:
-                    id = rows['id']
-                    data[id] = rows
+                   print(rows)
             
         elif option == 2:
-            with open(jsonFilePath, 'r') as jsonFile:
-                jsonFile.read(json.dumps(data, indent=4))
+            with open(json_obj, 'r', encoding="utf-8") as jsonFile:
+                jsonFile(json.dump(json_obj, indent=4))
 
         elif option == 3:
-            with open(csvFilePath, 'a') as csvFile:
-                csvAppend = csv.DictAppend(csvFile)
-                input("\n Lägg til person: ")
+            with open(json_obj, 'a', encoding="utf-8") as jsonFile:
+                 input("\n Lägg til person: ")
 
         elif option == 4:
-            with open(csvFilePath, 'w') as csvFile:
+            with open(json_obj, 'd', encoding="utf-8") as jsonFile:
+                print()
                 
-       # elif option == 5:
-        #    with
+        elif option == 5:
+            with open(json_obj, "w", encoding="utf-8") as 
         
         else:
-            print("Avsluta")
+            print("Avslutar programet")
 
-    labb2_personer_vt22 ()
+    program_lab2 ()
