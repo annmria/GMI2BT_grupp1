@@ -33,28 +33,23 @@ import json
 
 # {} to create a dictionary, [] to index it
 
+jsonFile= 'labb2_personer_vt22.json'
 
 
-def program_lab2(csvFilePath, json_obj):
+def program_lab2():
 
     csvFilePath = 'labb2_personer_vt22.csv'
-    #jsonFilePath = 'labb2_personer_vt22.json'
+    data = {} 
     
-    data = {} #behövs nog inte
-    with open ("labb2_personer_vt22.json", "w", encoding="utf-8") as json_obj:
-    json.dump(json_obj, ensure_ascii=False, indent=4)
     
-
-
-    print("1: läs originalfil, 2: visa json data, 3: lägg till person, 4: ta bort person, 5: spara fil, 6: avsluta")
     
     menu_options = {
-        1: '1',
-        2: '2',
-        3: '3',
-        4: '4',
-        5: '5',
-        6: '6'
+        1: '1: read original file to json',
+        2: "2: show current json data",
+        3: '3: add a person',
+        4: '4: remove a person',
+        5: '5: save file',
+        6: '6: exit'
     }
     
     def print_menu():
@@ -62,37 +57,54 @@ def program_lab2(csvFilePath, json_obj):
             print (personer, '--', menu_options[personer])
     
     while [1, 5]:
-        print_menu()
-        #print("1=: read original file")            
-        #print("2=: show json data")            
-        #print("3=: add a person")            
-        #print("4=: remove a person")            
-        #print("5=: save file")            
-        #print("6=: exit")            
+        print_menu()         
         option= int(input("Välj 1-6: "))
 
         if option == 1:
-            with open(csvFilePath, "r" ) as csvFile:
+            with open(csvFilePath, "r", encoding="utf-8-sig" ) as csvFile:
                 csvReader = csv.DictReader(csvFile)
-            for rows in csvReader:
-                   print(rows)
+                for rows in csvReader:
+                    print(rows)
+                    key =rows["användarnamn"]
+                    data [key] = rows
+            with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:
+                json.dump(data, json_obj, ensure_ascii=False, indent=4)       
             
         elif option == 2:
-            with open(json_obj, 'r', encoding="utf-8") as jsonFile:
-                jsonFile(json.dump(json_obj, indent=4))
+           open_file= open(jsonFile, "r")
+           load_data=json.load(open_file)
+           output= json.dumps(load_data, indent=4, ensure_ascii=False)
+           open_file.close()
+           print(output)
 
         elif option == 3:
-            with open(json_obj, 'a', encoding="utf-8") as jsonFile:
-                 input("\n Lägg til person: ")
-
+            temp_dict ={}
+            användarnamn =input("ange användarnamn: ")
+            förnamn =input("ange förnamn: ")
+            efternamn =input("ange efternamn: ")
+            epost =input("ange epost: ")
+            user_dict ={ "användarnamn":  användarnamn,
+                          "förnamn": förnamn,
+                           "efternamn":  efternamn,
+                           "epost": epost,}
+            with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as fil:
+                add_to_json=json.load(fil)
+                for key, value in add_to_json.items():
+                    temp_dict[key]=value
+                temp_dict[användarnamn]=user_dict
+            with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:     
+                json.dump(temp_dict, json_obj, ensure_ascii=False, indent=4)
+                 
         elif option == 4:
             with open(json_obj, 'd', encoding="utf-8") as jsonFile:
                 print()
                 
         elif option == 5:
-            with open(json_obj, "w", encoding="utf-8") as 
+            with open(json_obj, "w", encoding="utf-8") as jsonFile:
+                print()
         
         else:
             print("Avslutar programet")
 
-    program_lab2 ()
+program_lab2()
+
