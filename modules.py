@@ -33,12 +33,13 @@ import json
 
 # {} to create a dictionary, [] to index it
 
-jsonFile= 'labb2_personer_vt22.json'
+
 
 
 def program_lab2():
 
     csvFilePath = 'labb2_personer_vt22.csv'
+    #jsonFile= 'labb2_personer_vt22.json'
     data = {} 
     
     
@@ -71,7 +72,7 @@ def program_lab2():
                 json.dump(data, json_obj, ensure_ascii=False, indent=4)       
             
         elif option == 2:
-           open_file= open(jsonFile, "r")
+           open_file= open("labb2_personer_vt22.json", "r", encoding="utf-8-sig")
            load_data=json.load(open_file)
            output= json.dumps(load_data, indent=4, ensure_ascii=False)
            open_file.close()
@@ -96,15 +97,28 @@ def program_lab2():
                 json.dump(temp_dict, json_obj, ensure_ascii=False, indent=4)
                  
         elif option == 4:
-            with open(json_obj, 'd', encoding="utf-8") as jsonFile:
-                print()
+            användarnamn =input("ange användarnamn på personen du vill ta bort: ")
+            new_dict={}
+            with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as json_obj:
+                json_dict =json.load(json_obj)
+                for key in json_obj:
+                    print(key, ",", json_dict[key])
+                del json_dict[användarnamn]
+                
+                for key, value in json_dict.items():
+                    new_dict[key] = value
+                for key, value in new_dict.items():
+                    print(key, value)
+            with open ("labb2_personer_vt22.json", 'w', encoding="utf-8-sig") as new_json:
+                json.dump(new_dict, new_json, ensure_ascii=False ,indent=4)
                 
         elif option == 5:
-            with open(json_obj, "w", encoding="utf-8") as jsonFile:
+            with open("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as csvFile:
                 print()
         
         else:
             print("Avslutar programet")
+            exit()
 
 program_lab2()
 
