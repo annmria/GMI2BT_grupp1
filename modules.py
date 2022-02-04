@@ -1,7 +1,6 @@
 import random 
 import csv
 import json
-from shutil import ExecError
 
 
 def nummer (x, y):
