@@ -10,6 +10,7 @@ def nummer (x, y):
         if number % x==0 and number % y==0:
             quotients.append(number)
     print(quotients)
+    
 def spel ():
     number=random.randint (1, 15)
     guess =0
