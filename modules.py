@@ -1,6 +1,7 @@
 import random 
 import csv
 import json
+from shutil import ExecError
 
 
 def nummer (x, y):
@@ -54,80 +55,98 @@ def program_lab2():
             print (personer, '--', menu_options[personer]) #en funktion som printar en meny
     
     while [1, 5]:
-        print_menu()         
-        option= int(input("Välj 1-6: "))
+        print_menu()
+        try:
+            option= int(input("Välj 1-6: "))
+        except Exception as ferr:
+            print("Du måste ange en siffra mellan 1-6")
 
         if option == 1:
-            with open(csvFilePath, "r", encoding="utf-8-sig" ) as csvFile:
-                csvReader = csv.DictReader(csvFile)
-                for rows in csvReader:
-                    print(rows)
-                    key =rows["användarnamn"]
-                    data [key] = rows
-            with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:
-                json.dump(data, json_obj, ensure_ascii=False, indent=4)       
+            try:
+                with open(csvFilePath, "r", encoding="utf-8-sig" ) as csvFile:
+                    csvReader = csv.DictReader(csvFile)
+                    for rows in csvReader:
+                        print(rows)
+                        key =rows["användarnamn"]
+                        data [key] = rows
+                with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:
+                    json.dump(data, json_obj, ensure_ascii=False, indent=4)
+            except Exception as ferr:
+                print(ferr)    
             
         elif option == 2:
-           open_file= open("labb2_personer_vt22.json", "r", encoding="utf-8-sig")
-           load_data=json.load(open_file)
-           output= json.dumps(load_data, indent=4, ensure_ascii=False)
-           open_file.close()
-           print(output)
+            try:
+                open_file= open("labb2_personer_vt22.json", "r", encoding="utf-8-sig")
+                load_data=json.load(open_file)
+                output= json.dumps(load_data, indent=4, ensure_ascii=False)
+                open_file.close()
+                print(output)
+            except Exception as ferr:
+                print(ferr)
 
         elif option == 3:
-            temp_dict ={}
-            användarnamn =input("ange användarnamn: ")
-            förnamn =input("ange förnamn: ")
-            efternamn =input("ange efternamn: ")
-            epost =input("ange epost: ")
-            user_dict ={ "användarnamn":  användarnamn,
-                          "förnamn": förnamn,
-                           "efternamn":  efternamn,
-                           "epost": epost,} #sparar all input i en dict
-            with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as fil:
-                add_to_json=json.load(fil)
-                for key, value in add_to_json.items():
-                    temp_dict[key]=value
-                temp_dict[användarnamn]=user_dict
-            with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:     
-                json.dump(temp_dict, json_obj, ensure_ascii=False, indent=4)
+            try:
+                temp_dict ={}
+                användarnamn =input("ange användarnamn: ")
+                förnamn =input("ange förnamn: ")
+                efternamn =input("ange efternamn: ")
+                epost =input("ange epost: ")
+                user_dict ={ "användarnamn":  användarnamn,
+                                "förnamn": förnamn,
+                                "efternamn":  efternamn,
+                                "epost": epost,} #sparar all input i en dict
+                with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as fil:
+                    add_to_json=json.load(fil)
+                    for key, value in add_to_json.items():
+                        temp_dict[key]=value
+                    temp_dict[användarnamn]=user_dict
+                with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:     
+                    json.dump(temp_dict, json_obj, ensure_ascii=False, indent=4)
+            except Exception as ferr:
+                print(ferr)
                  
         elif option == 4:
-            användarnamn =input("ange användarnamn på personen du vill ta bort: ")
-            new_dict={}
-            with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as json_obj:
-                json_dict =json.load(json_obj) 
-                for key in json_obj:
-                    print(key, ",", json_dict[key])
-                del json_dict[användarnamn] #raderar användarnamn från användaren
+            try:
+                användarnamn =input("ange användarnamn på personen du vill ta bort: ")
+                new_dict={}
+                with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as json_obj:
+                    json_dict =json.load(json_obj) 
+                    for key in json_obj:
+                        print(key, ",", json_dict[key])
+                    del json_dict[användarnamn] #raderar användarnamn från användaren
                 
-                for key, value in json_dict.items():
-                    new_dict[key] = value
-                for key, value in new_dict.items():
-                    print(key, value)
-            with open ("labb2_personer_vt22.json", 'w', encoding="utf-8-sig") as new_json:
-                json.dump(new_dict, new_json, ensure_ascii=False ,indent=4) #bygger upp allt igen
+                    for key, value in json_dict.items():
+                        new_dict[key] = value
+                    for key, value in new_dict.items():
+                        print(key, value)
+                with open ("labb2_personer_vt22.json", 'w', encoding="utf-8-sig") as new_json:
+                    json.dump(new_dict, new_json, ensure_ascii=False ,indent=4) #bygger upp allt igen
+            except Exception as ferr:
+                print(ferr)
                 
         elif option == 5:
-            header_list=[] #tomma listor som man kan fylla längre ner
-            row_list= []
-            with open("labb2_personer_vt22.json", "r", encoding="utf-8-sig") as jsonF:
-                jsonD= json.load(jsonF)
-                for v_json in jsonD.values():
-                    #print(v_json)  Kan kolla så det funkar.
-                    for k in v_json.keys():
-                        if k not in header_list:
-                            header_list.append(k) #lägger till saker om det inte redan finns.
-                    row_list.append(v_json.copy()) 
-            print(header_list) # så att man kan se sakerna i terminalen bara, så slipper man kolla filerna om man inte orkar med det.
-            print(row_list)
+            try:
+                header_list=[] #tomma listor som man kan fylla längre ner
+                row_list= []
+                with open("labb2_personer_vt22.json", "r", encoding="utf-8-sig") as jsonF:
+                    jsonD= json.load(jsonF)
+                    for v_json in jsonD.values():
+                        #print(v_json)  Kan kolla så det funkar.
+                        for k in v_json.keys():
+                            if k not in header_list:
+                                header_list.append(k) #lägger till saker om det inte redan finns.
+                        row_list.append(v_json.copy()) 
+                print(header_list) # så att man kan se sakerna i terminalen bara, så slipper man kolla filerna om man inte orkar med det.
+                print(row_list)
             
-            with open (csvFilePath, "w", newline="" , encoding="utf-8-sig") as csvfil:
-                skrivarObj= csv.DictWriter(csvfil, fieldnames=header_list)
-                skrivarObj.writeheader()
-                for data in row_list:
-                    skrivarObj.writerow(data)
-            print("Nu har filerna blivit uppdaterade")
+                with open (csvFilePath, "w", newline="" , encoding="utf-8-sig") as csvfil:
+                    skrivarObj= csv.DictWriter(csvfil, fieldnames=header_list)
+                    skrivarObj.writeheader()
+                    for data in row_list:
+                        skrivarObj.writerow(data)
+                print("Nu har filerna blivit uppdaterade")
+            except Exception as ferr:
+                print(ferr)
         
         else:
             print("Avslutar programet")
