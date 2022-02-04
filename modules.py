@@ -55,8 +55,11 @@ def program_lab2():
             print (personer, '--', menu_options[personer]) #en funktion som printar en meny
     
     while [1, 5]:
-        print_menu()        
-        option= int(input("Välj 1-6: "))
+        print_menu()
+        try:        
+            option= int(input("Välj 1-6: "))
+        except ValueError:
+            print("Only input a number 1-6")
             
         if option == 1:
             try:
