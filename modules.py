@@ -37,7 +37,7 @@ def spel ():
 
 
 def program_lab2():
-
+    
     csvFilePath = 'labb2_personer_vt22.csv'
     data = {} 
     
@@ -55,18 +55,6 @@ def program_lab2():
             print (personer, '--', menu_options[personer]) #en funktion som printar en meny
     
     while [1, 5]:
-<<<<<<< HEAD
-        print_menu()
-        try:
-            option= int(input("Välj 1-6: "))
-        except Exception as ferr:
-            print("Du måste ange en siffra mellan 1-6")
-
-        if option == 1:
-            try:
-                with open(csvFilePath, "r", encoding="utf-8-sig" ) as csvFile:
-                    csvReader = csv.DictReader(csvFile)
-=======
         print_menu()        
         option= int(input("Välj 1-6: "))
             
@@ -74,20 +62,10 @@ def program_lab2():
             try:
                 with open(csvFilePath, "r", encoding="utf-8-sig" ) as csvFile:
                     csvReader = csv.DictReader(csvFile)    
->>>>>>> b3fdc309eb9d8cf8065cf389f475085932ab72c8
                     for rows in csvReader:
                         print(rows)
                         key =rows["användarnamn"]
                         data [key] = rows
-<<<<<<< HEAD
-                with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:
-                    json.dump(data, json_obj, ensure_ascii=False, indent=4)
-            except Exception as ferr:
-                print(ferr)    
-            
-        elif option == 2:
-            try:
-=======
             except FileNotFoundError:
                     print("File not found. Check filepath/name")    
             with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:
@@ -95,28 +73,11 @@ def program_lab2():
             
         elif option == 2:
            try: 
->>>>>>> b3fdc309eb9d8cf8065cf389f475085932ab72c8
                 open_file= open("labb2_personer_vt22.json", "r", encoding="utf-8-sig")
                 load_data=json.load(open_file)
                 output= json.dumps(load_data, indent=4, ensure_ascii=False)
                 open_file.close()
                 print(output)
-<<<<<<< HEAD
-            except Exception as ferr:
-                print(ferr)
-
-        elif option == 3:
-            try:
-                temp_dict ={}
-                användarnamn =input("ange användarnamn: ")
-                förnamn =input("ange förnamn: ")
-                efternamn =input("ange efternamn: ")
-                epost =input("ange epost: ")
-                user_dict ={ "användarnamn":  användarnamn,
-                                "förnamn": förnamn,
-                                "efternamn":  efternamn,
-                                "epost": epost,} #sparar all input i en dict
-=======
            except FileNotFoundError:
                print("File not found. Check filepath/name")    
 
@@ -131,23 +92,11 @@ def program_lab2():
                            "efternamn":  efternamn,
                            "epost": epost,} #sparar all input i en dict
             try:
->>>>>>> b3fdc309eb9d8cf8065cf389f475085932ab72c8
                 with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as fil:
                     add_to_json=json.load(fil)
                     for key, value in add_to_json.items():
                         temp_dict[key]=value
                     temp_dict[användarnamn]=user_dict
-<<<<<<< HEAD
-                with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:     
-                    json.dump(temp_dict, json_obj, ensure_ascii=False, indent=4)
-            except Exception as ferr:
-                print(ferr)
-                 
-        elif option == 4:
-            try:
-                användarnamn =input("ange användarnamn på personen du vill ta bort: ")
-                new_dict={}
-=======
             except FileNotFoundError:
                     print("File not found. Check filepath/name")     
             with open ("labb2_personer_vt22.json", "w", encoding="utf-8-sig") as json_obj:     
@@ -157,28 +106,11 @@ def program_lab2():
             användarnamn =input("ange användarnamn på personen du vill ta bort: ") 
             new_dict={}
             try:
->>>>>>> b3fdc309eb9d8cf8065cf389f475085932ab72c8
                 with open("labb2_personer_vt22.json", 'r', encoding="utf-8-sig") as json_obj:
                     json_dict =json.load(json_obj) 
                     for key in json_obj:
                         print(key, ",", json_dict[key])
                     del json_dict[användarnamn] #raderar användarnamn från användaren
-<<<<<<< HEAD
-                
-                    for key, value in json_dict.items():
-                        new_dict[key] = value
-                    for key, value in new_dict.items():
-                        print(key, value)
-                with open ("labb2_personer_vt22.json", 'w', encoding="utf-8-sig") as new_json:
-                    json.dump(new_dict, new_json, ensure_ascii=False ,indent=4) #bygger upp allt igen
-            except Exception as ferr:
-                print(ferr)
-                
-        elif option == 5:
-            try:
-                header_list=[] #tomma listor som man kan fylla längre ner
-                row_list= []
-=======
                     for key, value in json_dict.items():
                         new_dict[key] = value
                     for key, value in new_dict.items():
@@ -194,7 +126,6 @@ def program_lab2():
             header_list=[] #tomma listor som man kan fylla längre ner
             row_list= []
             try:
->>>>>>> b3fdc309eb9d8cf8065cf389f475085932ab72c8
                 with open("labb2_personer_vt22.json", "r", encoding="utf-8-sig") as jsonF:
                     jsonD= json.load(jsonF)
                     for v_json in jsonD.values():
@@ -203,19 +134,6 @@ def program_lab2():
                             if k not in header_list:
                                 header_list.append(k) #lägger till saker om det inte redan finns.
                         row_list.append(v_json.copy()) 
-<<<<<<< HEAD
-                print(header_list) # så att man kan se sakerna i terminalen bara, så slipper man kolla filerna om man inte orkar med det.
-                print(row_list)
-            
-                with open (csvFilePath, "w", newline="" , encoding="utf-8-sig") as csvfil:
-                    skrivarObj= csv.DictWriter(csvfil, fieldnames=header_list)
-                    skrivarObj.writeheader()
-                    for data in row_list:
-                        skrivarObj.writerow(data)
-                print("Nu har filerna blivit uppdaterade")
-            except Exception as ferr:
-                print(ferr)
-=======
             except FileNotFoundError:
                 print("File not found. Check filepath/name")  
                 
@@ -228,11 +146,11 @@ def program_lab2():
                 for data in row_list:
                     skrivarObj.writerow(data)
             print("Nu har filerna blivit uppdaterade")
->>>>>>> b3fdc309eb9d8cf8065cf389f475085932ab72c8
         
         else:
             print("Avslutar programet")
             exit()
+
 
 
 
